@@ -2,42 +2,45 @@
 
 namespace App\Tests\Controller;
 
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
+use App\Tests\TestCase\GuzzleMockHandlerWebTestCase;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response as PsrResponse;
-use Symfony\Bundle\FrameworkBundle\Client as FrameworkClient;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DogControllerTest extends WebTestCase
+class DogControllerTest extends GuzzleMockHandlerWebTestCase
 {
-    /** @var FrameworkClient */
-    private $client;
-
-    /** @var MockHandler $mockHandler */
-    private $mockHandler;
-
-    /** @var HandlerStack $handlerStack */
-    private $handlerStack;
-
-    /** @var array */
-    private $history = [];
-
-    public function setUp()
+    /**
+     * @test
+     */
+    public function dogControllerWithError()
     {
-        $this->client = static::createClient();
+        $mockedResponse = new PsrResponse(
+            402,
+            [],
+            json_encode([
+                'mock' => true,
+                'error' => 'fail',
+            ])
+        );
 
-        $this->mockHandler = self::$kernel->getContainer()->get('app.http.client.guzzle_dog_mock_handler');
-        $this->handlerStack = self::$kernel->getContainer()->get('app.http.client.guzzle_dog_handler_stack');
+        $middleWareHistory = Middleware::history($this->history);
+        $this->mockHandler->append($mockedResponse);
+        $this->handlerStack->push($middleWareHistory);
+
+        $this->client->request('GET', '/api/dogs');
+//        dump($this->history);
+        $response = $this->client->getResponse();
+
+        $this->assertEquals('{"mock":true,"error":"fail"}', $response->getContent());
+        $this->assertEquals(402, $response->getStatusCode());
     }
 
     /**
      * @test
      */
-    public function dogControllerWithMockedRequest()
+    public function dogControllerWithSuccess()
     {
         $mockedResponse = new PsrResponse(
-            402,
+            200,
             [],
             json_encode([
                 'mock' => true,
@@ -53,6 +56,6 @@ class DogControllerTest extends WebTestCase
         $response = $this->client->getResponse();
 
         $this->assertEquals('{"mock":true}', $response->getContent());
-        $this->assertEquals(402, $response->getStatusCode());
+        $this->assertEquals(200, $response->getStatusCode());
     }
 }
