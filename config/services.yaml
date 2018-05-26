@@ -23,5 +23,10 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
-    # add more service definitions when explicit configuration is needed
-    # please note that last definitions always *replace* previous ones
+    app.http.client.guzzle_dog_client:
+        class: GuzzleHttp\Client
+        factory: 'App\Http\Client\Factory\DogGuzzleClientFactory:createClient'
+
+    App\Http\Client\DogClient:
+        arguments:
+            $client: '@app.http.client.guzzle_dog_client'
