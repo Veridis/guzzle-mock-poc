@@ -1,0 +1,26 @@
+default:
+    suites:
+        default:
+            contexts:
+                - FeatureContext:
+                    kernel: '@kernel'
+                - Behat\MinkExtension\Context\MinkContext
+                - RestContext:
+                    kernel: '@kernel'
+                - JsonContext:
+                    request: '@request_stack'
+                - DogClientContext:
+                    kernel: '@kernel'
+
+
+
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                class: App\Kernel
+        Behat\MinkExtension:
+            base_url: ""
+            sessions:
+                default:
+                    symfony2: ~
+        Behatch\Extension: ~

@@ -12,9 +12,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DogControllerTest extends WebTestCase
 {
-    /** @var ContainerInterface */
-    private $container;
-
     /** @var FrameworkClient */
     private $client;
 
@@ -24,15 +21,12 @@ class DogControllerTest extends WebTestCase
     /** @var HandlerStack $handlerStack */
     private $handlerStack;
 
-    /**
-     * @var array
-     */
+    /** @var array  */
     private $history = [];
 
     public function setUp()
     {
         $this->client = static::createClient();
-        $this->container = self::$kernel->getContainer();
 
         $this->mockHandler = self::$kernel->getContainer()->get('app.http.client.guzzle_dog_mock_handler');
         $this->handlerStack = self::$kernel->getContainer()->get('app.http.client.guzzle_dog_handler_stack');
