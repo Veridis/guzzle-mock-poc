@@ -1,0 +1,15 @@
+services:
+    _defaults:
+        public: true
+
+    app.http.client.guzzle_dog_mock_handler:
+        class: GuzzleHttp\Handler\MockHandler
+
+    app.http.client.guzzle_dog_handler_stack:
+        class: GuzzleHttp\HandlerStack
+        arguments: ['@app.http.client.guzzle_dog_mock_handler']
+
+    app.http.client.guzzle_dog_client:
+        class: GuzzleHttp\Client
+        arguments:
+            - { handler: '@app.http.client.guzzle_dog_handler_stack' }
