@@ -8,7 +8,6 @@ use GuzzleHttp\Middleware;
 use GuzzleHttp\Psr7\Response as PsrResponse;
 use Symfony\Bundle\FrameworkBundle\Client as FrameworkClient;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\DependencyInjection\ContainerInterface;
 
 class DogControllerTest extends WebTestCase
 {
@@ -21,7 +20,7 @@ class DogControllerTest extends WebTestCase
     /** @var HandlerStack $handlerStack */
     private $handlerStack;
 
-    /** @var array  */
+    /** @var array */
     private $history = [];
 
     public function setUp()

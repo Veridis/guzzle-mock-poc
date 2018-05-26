@@ -18,7 +18,7 @@ class DogClientContext implements Context
     /** @var HandlerStack $handlerStack */
     private $handlerStack = null;
 
-    /** @var array  */
+    /** @var array */
     private $history = [];
 
     public function __construct(KernelInterface $kernel)
@@ -52,6 +52,4 @@ class DogClientContext implements Context
         $this->mockHandler->append($mockedResponse);
         $this->handlerStack->push($middleWareHistory);
     }
-
-
 }

@@ -97,15 +97,14 @@ class JsonContext extends BaseJsonContext implements Context
         try {
             $expected = new Json($content);
             $actual = json_encode($actual);
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
             throw new \Exception('The expected JSON is not a valid');
         }
 
         $this->assertSame(
             (string) $expected,
             (string) $actual,
-            "The json is equal to:\n". $actual
+            "The json is equal to:\n".$actual
         );
     }
 }

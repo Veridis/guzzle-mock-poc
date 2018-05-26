@@ -9,7 +9,7 @@ class DogGuzzleClientFactory
     public function createClient()
     {
         return new Client([
-            'base_uri' => 'https://dog.ceo/'
+            'base_uri' => 'https://dog.ceo/',
         ]);
     }
 }
