@@ -33,7 +33,7 @@ services:
 
 ### test
 
-In `test environment, the `app.http.client.guzzle_dog_client` is overriden. 
+In `test` environment, the `app.http.client.guzzle_dog_client` is overriden. 
 We will Mock the response with the `GuzzleHttp\Handler\MockHandler`
 
 ```yaml
