@@ -11,8 +11,9 @@ default:
                     request: '@request_stack'
                 - DogClientContext:
                     kernel: '@kernel'
-
-
+                    mockHandler: '@app.http.client.guzzle_dog_mock_handler'
+                    handlerStack: '@app.http.client.guzzle_dog_handler_stack'
+                    responsesBasePath: '%paths.base%/tests/Fixtures/Guzzle/MockedResponse/'
 
     extensions:
         Behat\Symfony2Extension:
